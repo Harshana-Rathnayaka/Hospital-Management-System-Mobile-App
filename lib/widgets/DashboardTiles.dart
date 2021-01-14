@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:hospital_management_system/screens/AllVehicles.dart';
-import 'package:hospital_management_system/screens/Drivers.dart';
+import 'package:hospital_management_system/screens/Appointments.dart';
 import 'package:hospital_management_system/screens/FuelSettings.dart';
 
 class DashboardTiles extends StatefulWidget {
   final String username;
-  const DashboardTiles({Key key, this.username}) : super(key: key);
+  final String userId;
+  const DashboardTiles({Key key, this.username, this.userId}) : super(key: key);
 
   @override
   _DashboardTilesState createState() => _DashboardTilesState();
@@ -68,7 +69,7 @@ class _DashboardTilesState extends State<DashboardTiles> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => Drivers()));
+                        context, MaterialPageRoute(builder: (_) => Appointments(userId: widget.userId)));
                   },
                   child: Card(
                     margin: const EdgeInsets.all(10),

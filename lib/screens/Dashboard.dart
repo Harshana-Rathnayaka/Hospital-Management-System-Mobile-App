@@ -7,8 +7,9 @@ enum Page { dashboard, manage }
 
 class Dashboard extends StatefulWidget {
   final String name;
+  final String userId;
 
-  Dashboard({this.name});
+  Dashboard({this.name, this.userId});
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -65,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
   Widget _loadScreen(page) {
     switch (_selectedPage) {
       case Page.dashboard:
-        return DashboardTiles(username: widget.name);
+        return DashboardTiles(username: widget.name, userId: widget.userId);
         break;
       case Page.manage:
         return ManagementOptions();

@@ -131,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (BuildContext context) =>
                                             Dashboard(
                                           name: res['full_name'],
+                                          userId: res['user_id'].toString()
                                         ),
                                       ),
                                     );
