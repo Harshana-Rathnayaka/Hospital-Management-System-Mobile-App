@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:hospital_management_system/constants/images.dart';
 import 'package:http/http.dart' as http;
-import 'package:hospital_management_system/screens/AdminHome.dart';
 import 'package:hospital_management_system/screens/SignUp.dart';
 import 'package:hospital_management_system/screens/Dashboard.dart';
 import 'package:hospital_management_system/services/NetworkHelper.dart';
@@ -125,21 +124,16 @@ class _LoginPageState extends State<LoginPage> {
                                         backgroundColor: Colors.red[600],
                                         textColor: Colors.white,
                                         toastLength: Toast.LENGTH_LONG);
-                                  } else if (res['error'] == false &&
-                                      res['super_user'] == true) {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                AdminHomePage()));
                                   } else {
                                     Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                Dashboard(
-                                                  username: res['username'],
-                                                )));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Dashboard(
+                                          name: res['full_name'],
+                                        ),
+                                      ),
+                                    );
                                   }
                                 });
                               }
