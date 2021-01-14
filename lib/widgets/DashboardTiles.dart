@@ -23,10 +23,16 @@ class _DashboardTilesState extends State<DashboardTiles> {
     height = MediaQuery.of(context).size.height;
     return Column(
       children: <Widget>[
-        // SizedBox(height: 15),
         Container(
           decoration: BoxDecoration(
-              color: primaryColor.withAlpha(450),
+              gradient: LinearGradient(
+                  colors: [
+                    Colors.purple,
+                    Colors.pinkAccent,
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  tileMode: TileMode.clamp),
               borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(10),
@@ -69,7 +75,10 @@ class _DashboardTilesState extends State<DashboardTiles> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => Appointments(userId: widget.userId)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) =>
+                                Appointments(userId: widget.userId)));
                   },
                   child: Card(
                     margin: const EdgeInsets.all(10),
@@ -162,7 +171,6 @@ class _DashboardTilesState extends State<DashboardTiles> {
                     ),
                   ),
                 ),
-                
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,

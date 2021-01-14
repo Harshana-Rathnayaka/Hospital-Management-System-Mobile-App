@@ -131,15 +131,19 @@ class _AppointmentsState extends State<Appointments> {
                                   width: width,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(colors: [
-                                      Color(0xFFDE6CF5),
-                                      Color(0xFFCC79F2),
-                                      Color(0xFFC77AF2),
-                                      Color(0xFFBF7BF2),
-                                      Color(0xFFB77CF3),
-                                      Color(0xFFAD7DF3),
-                                      Color(0xFF9F7EF4),
-                                    ]),
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xFFDE6CF5),
+                                          Color(0xFFCC79F2),
+                                          Color(0xFFC77AF2),
+                                          Color(0xFFBF7BF2),
+                                          Color(0xFFB77CF3),
+                                          Color(0xFFAD7DF3),
+                                          Color(0xFF9F7EF4),
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        tileMode: TileMode.clamp),
                                     boxShadow: [
                                       BoxShadow(
                                           color: Colors.grey.withOpacity(0.5),
