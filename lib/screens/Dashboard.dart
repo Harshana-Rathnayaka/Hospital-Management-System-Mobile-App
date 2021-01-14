@@ -25,38 +25,7 @@ class _DashboardState extends State<Dashboard> {
     height = MediaQuery.of(context).size.height;
     return SafeArea(
           child: Scaffold(
-        // appBar: AppBar(
-        //   title: Row(
-        //     children: <Widget>[
-        //       Expanded(
-        //           child: FlatButton.icon(
-        //               onPressed: () {
-        //                 setState(() => _selectedPage = Page.dashboard);
-        //               },
-        //               icon: Icon(
-        //                 Icons.dashboard,
-        //                 color: _selectedPage == Page.dashboard
-        //                     ? primaryColor
-        //                     : colorGrey,
-        //               ),
-        //               label: Text('Dashboard'))),
-        //       Expanded(
-        //         child: FlatButton.icon(
-        //             onPressed: () {
-        //               setState(() => _selectedPage = Page.manage);
-        //             },
-        //             icon: Icon(
-        //               Icons.sort,
-        //               color:
-        //                   _selectedPage == Page.manage ? primaryColor : colorGrey,
-        //             ),
-        //             label: Text('Manage')),
-        //       ),
-        //     ],
-        //   ),
-        //   elevation: 0.0,
-        //   backgroundColor: appBarColor,
-        // ),
+        
         body: _loadScreen(_selectedPage),
         backgroundColor: backgroundColor,
       ),
