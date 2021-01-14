@@ -48,8 +48,11 @@ class _SignUpState extends State<SignUp> {
     });
 
     final http.Response response = await Network().postData({
+      'full_name': _nameController.text,
       'username': _usernameController.text,
       'email': _emailController.text,
+      'contact': _contactController.text,
+      'address': _addressController.text,
       'password': _passwordController.text
     }, '/registerUser.php');
 
@@ -71,6 +74,19 @@ class _SignUpState extends State<SignUp> {
       return 'Email address is required';
     } else if (!regExp.hasMatch(value)) {
       return 'Please enter a valid email address';
+    }
+    return null;
+  }
+
+    String validateMobile(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
+
+    if (value.length == 0) {
+      return 'Mobile number is required';
+    }
+    else if (!regExp.hasMatch(value)) {
+      return 'Please enter a valid mobile number';
     }
     return null;
   }
@@ -112,7 +128,7 @@ class _SignUpState extends State<SignUp> {
                             icon: FlutterIcons.account_card_details_mco,
                             validation: (val) {
                               if (val.isEmpty) {
-                                return "Your name is required";
+                                return "Name is required";
                               }
                               return null;
                             },
@@ -147,12 +163,10 @@ class _SignUpState extends State<SignUp> {
                             controller: _contactController,
                             hint: "Contact",
                             isNumber: true,
+                            maxLength: 10,
                             icon: Icons.contact_phone,
                             validation: (val) {
-                             if (val.isEmpty) {
-                                return "Your mobile number is required";
-                              }
-                              return null;
+                              return validateMobile(val);
                             },
                           ),
 
@@ -165,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                             icon: FlutterIcons.location_city_mdi,
                             validation: (val) {
                               if (val.isEmpty) {
-                                return "Your address is required";
+                                return "Address is required";
                               }
                               return null;
                             },
