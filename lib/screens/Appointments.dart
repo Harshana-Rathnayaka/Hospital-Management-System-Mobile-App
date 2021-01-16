@@ -23,6 +23,7 @@ class _AppointmentsState extends State<Appointments> {
   List _doctors;
   double width;
   double height;
+  var _selectedDocotor;
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _licenseController = TextEditingController();
@@ -127,7 +128,7 @@ class _AppointmentsState extends State<Appointments> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _addNewDriverDialog(context);
+          _addNewAppointmentDialog(context);
         },
         child: Icon(Icons.person_add),
       ),
@@ -304,8 +305,8 @@ class _AppointmentsState extends State<Appointments> {
     );
   }
 
-// adding new user dialog
-  Future<Widget> _addNewDriverDialog(context) {
+// adding new appointment dialog
+  Future<Widget> _addNewAppointmentDialog(context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -337,7 +338,7 @@ class _AppointmentsState extends State<Appointments> {
                     height: 70,
                     width: double.infinity,
                     alignment: Alignment.center,
-                    child: Text('Add New User',
+                    child: Text('New Appointment',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
@@ -353,37 +354,77 @@ class _AppointmentsState extends State<Appointments> {
                       key: _formKey,
                       child: Column(
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 10.0),
+                            child: DropdownButtonFormField(
+                              value: _selectedDocotor,
+                              items: _doctors
+                                  .map((value) => DropdownMenuItem(
+                                        child: Text(value["full_name"]),
+                                        value: value['user_id'],
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                print('inside on change');
+                                setState(() {
+                                  _selectedDocotor = value;
+                                  print('set change: $value');
+                                });
+                              },
+                              isExpanded: true,
+                              iconEnabledColor: primaryColor,
+                              dropdownColor: fillColor,
+                              isDense: true,
+                              iconSize: 30.0,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  MaterialCommunityIcons.doctor,
+                                  color: primaryColor,
+                                ),
+                                filled: true,
+                                fillColor: fillColor,
+                                labelText: _selectedDocotor == null
+                                    ? 'Select the Doctor'
+                                    : 'Doctor',
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(16, 10, 0, 10),
+                                hintStyle: TextStyle(color: hintColor),
+                                hintText: "Select the Doctor",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(
+                                      color: primaryColor, width: 1.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(
+                                      color: primaryColor, width: 1.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide:
+                                      BorderSide(color: errorColor, width: 1),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide:
+                                      BorderSide(color: errorColor, width: 1),
+                                ),
+                                errorStyle: TextStyle(),
+                              ),
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
                           MyTextField(
-                            hint: 'Full Name',
-                            icon: MaterialCommunityIcons.account,
+                            hint: 'Description',
+                            icon: MaterialCommunityIcons.note_text,
+                            isMultiline: true,
+                            maxLines: 5,
                             controller: _nameController,
                             validation: (val) {
                               if (val.isEmpty) {
-                                return 'Name is required';
-                              }
-                              return null;
-                            },
-                          ),
-                          MyTextField(
-                            hint: 'License Number',
-                            icon: MaterialCommunityIcons.card_text,
-                            controller: _licenseController,
-                            validation: (val) {
-                              if (val.isEmpty) {
-                                return 'License number is required';
-                              }
-                              return null;
-                            },
-                          ),
-                          MyTextField(
-                            maxLength: 10,
-                            hint: 'Contact Number',
-                            icon: MaterialCommunityIcons.contact_phone,
-                            isNumber: true,
-                            controller: _contactController,
-                            validation: (val) {
-                              if (val.isEmpty) {
-                                return 'Contact number is required';
+                                return 'A description is required';
                               }
                               return null;
                             },
