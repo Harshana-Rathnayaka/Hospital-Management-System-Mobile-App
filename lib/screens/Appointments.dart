@@ -20,6 +20,7 @@ class Appointments extends StatefulWidget {
 class _AppointmentsState extends State<Appointments> {
   bool _loading = false;
   List _appointments;
+  List _doctors;
   double width;
   double height;
 
@@ -31,6 +32,7 @@ class _AppointmentsState extends State<Appointments> {
   @override
   void initState() {
     _getAppointments();
+    _getDoctors();
     super.initState();
   }
 
@@ -63,6 +65,30 @@ class _AppointmentsState extends State<Appointments> {
     });
 
     print(_appointments);
+
+    return response;
+  }
+
+  // get the doctors list
+  Future<http.Response> _getDoctors() async {
+    setState(() {
+      _loading = true;
+    });
+
+    final http.Response response = await Network().postData(
+        {'user_id': widget.userId, 'list_type': 'doctors'}, '/getLists.php');
+
+    print('response ---- ${jsonDecode(response.body)}');
+
+    setState(() {
+      _loading = false;
+      var res = jsonDecode(response.body);
+      setState(() {
+        _doctors = res['doctorsList'];
+      });
+    });
+
+    print(_doctors);
 
     return response;
   }
