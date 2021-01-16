@@ -17,8 +17,7 @@ class MyTextField extends StatefulWidget {
   var onChanged;
 
   MyTextField(
-      {
-      this.isPassword = false,
+      {this.isPassword = false,
       this.isEmail = false,
       this.isNumber = false,
       this.isMultiline = false,
@@ -57,7 +56,7 @@ class _MyTextFieldState extends State<MyTextField> {
                     : TextInputType.text)),
         decoration: InputDecoration(
           filled: true,
-          fillColor: primaryColor.withAlpha(50),
+          fillColor: fillColor,
           labelText: widget.hint,
           suffixIcon: widget.isSecure
               ? GestureDetector(
@@ -100,6 +99,5 @@ class _MyTextFieldState extends State<MyTextField> {
         ),
       ),
     );
-    
   }
 }
