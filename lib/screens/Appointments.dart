@@ -25,9 +25,7 @@ class _AppointmentsState extends State<Appointments> {
   double height;
   var _selectedDocotor;
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _licenseController = TextEditingController();
-  TextEditingController _contactController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -39,9 +37,7 @@ class _AppointmentsState extends State<Appointments> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _licenseController.dispose();
-    _contactController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -95,16 +91,16 @@ class _AppointmentsState extends State<Appointments> {
   }
 
   // adding a new appointment
-  Future<http.Response> _addDriver() async {
+  Future<http.Response> _addAppointment() async {
     setState(() {
       _loading = true;
     });
 
     final http.Response response = await Network().postData({
-      'name': _nameController.text,
-      'licenseNumber': _licenseController.text,
-      'contact': _contactController.text
-    }, '/addNewDriver.php');
+      'user_id': widget.userId.toString(),
+      'doctor_id': _selectedDocotor['user_id'].toString(),
+      'description': _descriptionController.text
+    }, '/createAppointment.php');
 
     print('response ---- ${jsonDecode(response.body)}');
 
@@ -362,7 +358,7 @@ class _AppointmentsState extends State<Appointments> {
                               items: _doctors
                                   .map((value) => DropdownMenuItem(
                                         child: Text(value["full_name"]),
-                                        value: value['user_id'],
+                                        value: value,
                                       ))
                                   .toList(),
                               onChanged: (value) {
@@ -421,7 +417,7 @@ class _AppointmentsState extends State<Appointments> {
                             icon: MaterialCommunityIcons.note_text,
                             isMultiline: true,
                             maxLines: 5,
-                            controller: _nameController,
+                            controller: _descriptionController,
                             validation: (val) {
                               if (val.isEmpty) {
                                 return 'A description is required';
@@ -432,7 +428,7 @@ class _AppointmentsState extends State<Appointments> {
                           GestureDetector(
                             onTap: () {
                               if (_formKey.currentState.validate()) {
-                                _addDriver().then((value) {
+                                _addAppointment().then((value) {
                                   var res = jsonDecode(value.body);
 
                                   if (res['error'] == true) {
@@ -443,9 +439,7 @@ class _AppointmentsState extends State<Appointments> {
                                         toastLength: Toast.LENGTH_LONG);
                                   } else {
                                     setState(() {
-                                      _nameController.clear();
-                                      _licenseController.clear();
-                                      _contactController.clear();
+                                      _descriptionController.clear();
                                     });
                                     Fluttertoast.showToast(
                                             msg: res['message'],
