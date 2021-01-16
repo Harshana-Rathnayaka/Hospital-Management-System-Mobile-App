@@ -198,15 +198,21 @@ class _AppointmentsState extends State<Appointments> {
                                                             'appointment_status'] ==
                                                         'PENDING'
                                                     ? Colors.orange
-                                                    : _appointments[index][
-                                                                'appointment_status'] ==
+                                                    : _appointments[index]['appointment_status'] ==
                                                             'ACCEPTED'
                                                         ? Colors.green
-                                                        : _appointments[index][
-                                                                    'appointment_status'] ==
-                                                                'COMPLETED'
+                                                        : _appointments[index]['appointment_status'] ==
+                                                                'PAID'
                                                             ? Colors.blue[700]
-                                                            : Colors.red[600]),
+                                                            : _appointments[index]['appointment_status'] ==
+                                                                    'COMPLETED'
+                                                                ? Colors
+                                                                    .grey[600]
+                                                                : _appointments[index]
+                                                                            ['appointment_status'] ==
+                                                                        'CANCELLED'
+                                                                    ? Colors.redAccent[100]
+                                                                    : Colors.red[600]),
                                             child: Text(
                                               _appointments[index]
                                                   ['appointment_status'],
