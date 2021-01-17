@@ -24,6 +24,7 @@ class _AppointmentsState extends State<Appointments> {
   double width;
   double height;
   var _selectedDocotor;
+  String dropdownValue = 'Update';
 
   TextEditingController _descriptionController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey();
@@ -111,6 +112,25 @@ class _AppointmentsState extends State<Appointments> {
     return response;
   }
 
+  // cancelling an appointment
+  Future<http.Response> _cancelAppointment(appointmentId) async {
+    setState(() {
+      _loading = true;
+    });
+
+    final http.Response response = await Network().postData({
+      'appointment_id': appointmentId.toString(),
+    }, '/cancelAppointment.php');
+
+    print('response ---- ${jsonDecode(response.body)}');
+
+    setState(() {
+      _loading = false;
+    });
+
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -147,153 +167,240 @@ class _AppointmentsState extends State<Appointments> {
                               scrollDirection: Axis.vertical,
                               itemCount: _appointments.length,
                               itemBuilder: (context, index) {
-                                return Container(
-                                  padding: const EdgeInsets.all(20),
-                                  margin:
-                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                  width: width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xFFDE6CF5),
-                                          Color(0xFFCC79F2),
-                                          Color(0xFFC77AF2),
-                                          Color(0xFFBF7BF2),
-                                          Color(0xFFB77CF3),
-                                          Color(0xFFAD7DF3),
-                                          Color(0xFF9F7EF4),
-                                        ],
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                        tileMode: TileMode.clamp),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3)),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            _appointments[index]['full_name'],
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                                color: colorWhite),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 2, horizontal: 5),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: _appointments[index][
-                                                            'appointment_status'] ==
-                                                        'PENDING'
-                                                    ? Colors.orange
-                                                    : _appointments[index]['appointment_status'] ==
-                                                            'ACCEPTED'
-                                                        ? Colors.green
-                                                        : _appointments[index]['appointment_status'] ==
-                                                                'PAID'
-                                                            ? Colors.blue[700]
-                                                            : _appointments[index]['appointment_status'] ==
-                                                                    'COMPLETED'
-                                                                ? Colors
-                                                                    .grey[600]
-                                                                : _appointments[index]
-                                                                            ['appointment_status'] ==
-                                                                        'CANCELLED'
-                                                                    ? Colors.redAccent[100]
-                                                                    : Colors.red[600]),
-                                            child: Text(
-                                              _appointments[index]
-                                                  ['appointment_status'],
+                                return GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 6),
+                                    margin: const EdgeInsets.fromLTRB(
+                                        20, 10, 20, 10),
+                                    width: width,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFDE6CF5),
+                                            Color(0xFFCC79F2),
+                                            Color(0xFFC77AF2),
+                                            Color(0xFFBF7BF2),
+                                            Color(0xFFB77CF3),
+                                            Color(0xFFAD7DF3),
+                                            Color(0xFF9F7EF4),
+                                          ],
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          tileMode: TileMode.clamp),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0, 3)),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              _appointments[index]['full_name'],
                                               style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  color: colorWhite),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: width - 80,
-                                            height: 50,
-                                            child: Text(
-                                              _appointments[index]
-                                                  ['description'],
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 3,
-                                              style:
-                                                  TextStyle(color: colorWhite),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 2,
+                                                      horizontal: 5),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: _appointments[index][
+                                                              'appointment_status'] ==
+                                                          'PENDING'
+                                                      ? Colors.orange
+                                                      : _appointments[index]['appointment_status'] ==
+                                                              'ACCEPTED'
+                                                          ? Colors.green
+                                                          : _appointments[index]['appointment_status'] ==
+                                                                  'PAID'
+                                                              ? Colors.blue[700]
+                                                              : _appointments[index]['appointment_status'] ==
+                                                                      'COMPLETED'
+                                                                  ? Colors
+                                                                      .grey[600]
+                                                                  : _appointments[index]['appointment_status'] ==
+                                                                          'CANCELLED'
+                                                                      ? Colors
+                                                                          .redAccent[100]
+                                                                      : Colors.red[600]),
+                                              child: Text(
+                                                _appointments[index]
+                                                    ['appointment_status'],
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: width - 80,
+                                              height: 50,
+                                              child: Text(
+                                                _appointments[index]
+                                                    ['description'],
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    color: colorWhite),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Appointment: ',
+                                              style: TextStyle(
+                                                  color: Colors.white70,
+                                                  fontWeight: FontWeight.bold),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(height: 10),
-                                      (_appointments[index]['date'] == null ||
-                                              _appointments[index]['time'] ==
-                                                  null)
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                  Text(
-                                                    'Appointment: ',
-                                                    style: TextStyle(
-                                                        color: Colors.white70,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Text(
+                                            (_appointments[index]['date'] ==
+                                                        null ||
+                                                    _appointments[index]
+                                                            ['time'] ==
+                                                        null)
+                                                ? Text(
                                                     'N/A',
                                                     style: TextStyle(
                                                         color: Colors.white70,
                                                         fontWeight:
                                                             FontWeight.bold),
+                                                  )
+                                                : Text(
+                                                    '${_appointments[index]['date']}  ${_appointments[index]['time']}',
+                                                    style: TextStyle(
+                                                        color: Colors.white70,
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                ])
-                                          : Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  'Appointment: ',
-                                                  style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Expanded(
+                                              child: DropdownButton<String>(
+                                                isDense: true,
+                                                isExpanded: true,
+                                                dropdownColor: fillColor,
+                                                icon: Icon(Icons.more_horiz,
+                                                    color: Colors.white),
+                                                underline: Container(
+                                                  height: 0,
+                                                  color:
+                                                      Colors.deepPurpleAccent,
                                                 ),
-                                                SizedBox(width: 5),
-                                                Text(
-                                                  _appointments[index]['date'],
-                                                  style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                SizedBox(width: 5),
-                                                Text(
-                                                  _appointments[index]['time'],
-                                                  style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
+                                                onChanged: (String newValue) {
+                                                  setState(() {
+                                                    dropdownValue = newValue;
+                                                  });
+                                                },
+                                                items: <String>[
+                                                  'Update',
+                                                  'Cancel'
+                                                ].map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                    onTap: () {
+                                                      print(value);
+
+                                                      if (value == 'Cancel') {
+                                                        if (_appointments[index]
+                                                                    [
+                                                                    'appointment_status'] ==
+                                                                'CANCELLED' ||
+                                                            _appointments[index]
+                                                                    [
+                                                                    'appointment_status'] ==
+                                                                'REJECTED') {
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  'This appointment has already been ${_appointments[index]['appointment_status']}!',
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .red[600],
+                                                              textColor:
+                                                                  Colors.white,
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG);
+                                                        } else {
+                                                          _cancelAppointment(
+                                                                  _appointments[
+                                                                          index]
+                                                                      [
+                                                                      'appointment_id'])
+                                                              .then((value) {
+                                                            var res =
+                                                                jsonDecode(
+                                                                    value.body);
+
+                                                            if (res['error'] ==
+                                                                true) {
+                                                              Fluttertoast.showToast(
+                                                                  msg: res[
+                                                                      'message'],
+                                                                  backgroundColor:
+                                                                      Colors.red[
+                                                                          600],
+                                                                  textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  toastLength: Toast
+                                                                      .LENGTH_LONG);
+                                                            } else {
+                                                              Fluttertoast.showToast(
+                                                                      msg: res[
+                                                                          'message'],
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .green,
+                                                                      textColor:
+                                                                          Colors
+                                                                              .white,
+                                                                      toastLength:
+                                                                          Toast
+                                                                              .LENGTH_LONG)
+                                                                  .then(
+                                                                      (value) {
+                                                                _getAppointments();
+                                                              });
+                                                            }
+                                                          });
+                                                        }
+                                                      }
+                                                    },
+                                                  );
+                                                }).toList(),
+                                              ),
                                             ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               }),
@@ -483,5 +590,6 @@ class _AppointmentsState extends State<Appointments> {
             ),
           );
         });
+    // update appointments dialog
   }
 }
