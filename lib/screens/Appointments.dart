@@ -112,6 +112,26 @@ class _AppointmentsState extends State<Appointments> {
     return response;
   }
 
+  // updating an appointment
+  Future<http.Response> _updateAppointment(appointmentId) async {
+    setState(() {
+      _loading = true;
+    });
+
+    final http.Response response = await Network().postData({
+      'appointment_id': appointmentId.toString(),
+      'description': _descriptionController.text
+    }, '/updateAppointment.php');
+
+    print('response ---- ${jsonDecode(response.body)}');
+
+    setState(() {
+      _loading = false;
+    });
+
+    return response;
+  }
+
   // cancelling an appointment
   Future<http.Response> _cancelAppointment(appointmentId) async {
     setState(() {
@@ -328,26 +348,26 @@ class _AppointmentsState extends State<Appointments> {
                                                     onTap: () {
                                                       print(value);
 
-                                                      if (value == 'Cancel') {
-                                                        if (_appointments[index]
-                                                                    [
-                                                                    'appointment_status'] ==
-                                                                'CANCELLED' ||
-                                                            _appointments[index]
-                                                                    [
-                                                                    'appointment_status'] ==
-                                                                'REJECTED') {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'This appointment has already been ${_appointments[index]['appointment_status']}!',
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .red[600],
-                                                              textColor:
-                                                                  Colors.white,
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG);
-                                                        } else {
+                                                      if (_appointments[index][
+                                                                  'appointment_status'] ==
+                                                              'CANCELLED' ||
+                                                          _appointments[index][
+                                                                  'appointment_status'] ==
+                                                              'REJECTED' ||
+                                                          _appointments[index][
+                                                                  'appointment_status'] ==
+                                                              'COMPLETED') {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                'This appointment has already been ${_appointments[index]['appointment_status']}!',
+                                                            backgroundColor:
+                                                                Colors.red[600],
+                                                            textColor:
+                                                                Colors.white,
+                                                            toastLength: Toast
+                                                                .LENGTH_LONG);
+                                                      } else {
+                                                        if (value == 'Cancel') {
                                                           _cancelAppointment(
                                                                   _appointments[
                                                                           index]
@@ -390,7 +410,15 @@ class _AppointmentsState extends State<Appointments> {
                                                               });
                                                             }
                                                           });
-                                                        }
+                                                        } else if (value ==
+                                                            'Update') {
+                                                          _updateAppointmentDialog(
+                                                              context,
+                                                              _appointments[
+                                                                      index][
+                                                                  'appointment_id']);
+                                                        } else if (value ==
+                                                            'View') {}
                                                       }
                                                     },
                                                   );
@@ -590,6 +618,122 @@ class _AppointmentsState extends State<Appointments> {
             ),
           );
         });
-    // update appointments dialog
+  }
+
+  // update appointments dialog
+  Future<Widget> _updateAppointmentDialog(context, appointmentId) async {
+    await Future.delayed(Duration(milliseconds: 500));
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            backgroundColor: Colors.transparent,
+            child: Container(
+              height: 280,
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(16.0),
+                      ),
+                    ),
+                    height: 70,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text('Update Appointment Details',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Colors.white),
+                        textAlign: TextAlign.center),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          MyTextField(
+                            hint: 'Description',
+                            icon: MaterialCommunityIcons.note_text,
+                            isMultiline: true,
+                            maxLines: 5,
+                            controller: _descriptionController,
+                            validation: (val) {
+                              if (val.isEmpty) {
+                                return 'The description is required';
+                              }
+                              return null;
+                            },
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (_formKey.currentState.validate()) {
+                                _updateAppointment(appointmentId).then((value) {
+                                  var res = jsonDecode(value.body);
+
+                                  if (res['error'] == true) {
+                                    Fluttertoast.showToast(
+                                        msg: res['message'],
+                                        backgroundColor: Colors.red[600],
+                                        textColor: Colors.white,
+                                        toastLength: Toast.LENGTH_LONG);
+                                  } else {
+                                    setState(() {
+                                      _descriptionController.clear();
+                                    });
+                                    Fluttertoast.showToast(
+                                            msg: res['message'],
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            toastLength: Toast.LENGTH_LONG)
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                      _getAppointments();
+                                    });
+                                  }
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 30.0,
+                              width: double.infinity,
+                              child: Text(
+                                'SAVE',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
