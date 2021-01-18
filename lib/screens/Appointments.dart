@@ -158,15 +158,17 @@ class _AppointmentsState extends State<Appointments> {
 
     return Scaffold(
       backgroundColor: backgroundColor,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: Text('Appointments'),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('New Appointment'),
         onPressed: () {
           _addNewAppointmentDialog(context);
         },
-        child: Icon(Icons.person_add),
+        icon: Icon(FlutterIcons.calendar_plus_mco),
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())
@@ -337,6 +339,7 @@ class _AppointmentsState extends State<Appointments> {
                                                   });
                                                 },
                                                 items: <String>[
+                                                  'View',
                                                   'Update',
                                                   'Cancel'
                                                 ].map<DropdownMenuItem<String>>(
@@ -347,78 +350,95 @@ class _AppointmentsState extends State<Appointments> {
                                                     child: Text(value),
                                                     onTap: () {
                                                       print(value);
+                                                      print(
+                                                          _appointments[index]);
 
-                                                      if (_appointments[index][
-                                                                  'appointment_status'] ==
-                                                              'CANCELLED' ||
-                                                          _appointments[index][
-                                                                  'appointment_status'] ==
-                                                              'REJECTED' ||
-                                                          _appointments[index][
-                                                                  'appointment_status'] ==
-                                                              'COMPLETED') {
-                                                        Fluttertoast.showToast(
-                                                            msg:
-                                                                'This appointment has already been ${_appointments[index]['appointment_status']}!',
-                                                            backgroundColor:
-                                                                Colors.red[600],
-                                                            textColor:
-                                                                Colors.white,
-                                                            toastLength: Toast
-                                                                .LENGTH_LONG);
-                                                      } else {
-                                                        if (value == 'Cancel') {
-                                                          _cancelAppointment(
-                                                                  _appointments[
-                                                                          index]
-                                                                      [
-                                                                      'appointment_id'])
-                                                              .then((value) {
-                                                            var res =
-                                                                jsonDecode(
-                                                                    value.body);
+                                                      if (value == 'View') {
+                                                        _viewAppointmentDialog(
+                                                            context,
+                                                            _appointments[
+                                                                index]);
+                                                      } else if (value ==
+                                                              'Cancel' ||
+                                                          value == 'Update') {
+                                                        if (_appointments[index]
+                                                                    [
+                                                                    'appointment_status'] ==
+                                                                'CANCELLED' ||
+                                                            _appointments[index]
+                                                                    [
+                                                                    'appointment_status'] ==
+                                                                'REJECTED' ||
+                                                            _appointments[index]
+                                                                    [
+                                                                    'appointment_status'] ==
+                                                                'COMPLETED') {
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  'This appointment has already been ${_appointments[index]['appointment_status']}!',
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .red[600],
+                                                              textColor:
+                                                                  Colors.white,
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG);
+                                                        } else {
+                                                          if (value ==
+                                                              'Cancel') {
+                                                            _cancelAppointment(
+                                                                    _appointments[
+                                                                            index]
+                                                                        [
+                                                                        'appointment_id'])
+                                                                .then((value) {
+                                                              var res =
+                                                                  jsonDecode(
+                                                                      value
+                                                                          .body);
 
-                                                            if (res['error'] ==
-                                                                true) {
-                                                              Fluttertoast.showToast(
-                                                                  msg: res[
-                                                                      'message'],
-                                                                  backgroundColor:
-                                                                      Colors.red[
-                                                                          600],
-                                                                  textColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  toastLength: Toast
-                                                                      .LENGTH_LONG);
-                                                            } else {
-                                                              Fluttertoast.showToast(
-                                                                      msg: res[
-                                                                          'message'],
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .green,
-                                                                      textColor:
-                                                                          Colors
-                                                                              .white,
-                                                                      toastLength:
-                                                                          Toast
-                                                                              .LENGTH_LONG)
-                                                                  .then(
-                                                                      (value) {
-                                                                _getAppointments();
-                                                              });
-                                                            }
-                                                          });
-                                                        } else if (value ==
-                                                            'Update') {
-                                                          _updateAppointmentDialog(
-                                                              context,
-                                                              _appointments[
-                                                                      index][
-                                                                  'appointment_id']);
-                                                        } else if (value ==
-                                                            'View') {}
+                                                              if (res['error'] ==
+                                                                  true) {
+                                                                Fluttertoast.showToast(
+                                                                    msg: res[
+                                                                        'message'],
+                                                                    backgroundColor:
+                                                                        Colors.red[
+                                                                            600],
+                                                                    textColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    toastLength:
+                                                                        Toast
+                                                                            .LENGTH_LONG);
+                                                              } else {
+                                                                Fluttertoast.showToast(
+                                                                        msg: res[
+                                                                            'message'],
+                                                                        backgroundColor:
+                                                                            Colors
+                                                                                .green,
+                                                                        textColor:
+                                                                            Colors
+                                                                                .white,
+                                                                        toastLength:
+                                                                            Toast
+                                                                                .LENGTH_LONG)
+                                                                    .then(
+                                                                        (value) {
+                                                                  _getAppointments();
+                                                                });
+                                                              }
+                                                            });
+                                                          } else if (value ==
+                                                              'Update') {
+                                                            _updateAppointmentDialog(
+                                                                context,
+                                                                _appointments[
+                                                                        index][
+                                                                    'appointment_id']);
+                                                          }
+                                                        }
                                                       }
                                                     },
                                                   );
@@ -453,7 +473,6 @@ class _AppointmentsState extends State<Appointments> {
             ),
             backgroundColor: Colors.transparent,
             child: Container(
-              height: 370,
               decoration: BoxDecoration(
                 color: backgroundColor,
                 shape: BoxShape.rectangle,
@@ -611,7 +630,7 @@ class _AppointmentsState extends State<Appointments> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 8,
                   ),
                 ],
               ),
@@ -622,7 +641,7 @@ class _AppointmentsState extends State<Appointments> {
 
   // update appointments dialog
   Future<Widget> _updateAppointmentDialog(context, appointmentId) async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 100));
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -632,7 +651,6 @@ class _AppointmentsState extends State<Appointments> {
             ),
             backgroundColor: Colors.transparent,
             child: Container(
-              height: 280,
               decoration: BoxDecoration(
                 color: backgroundColor,
                 shape: BoxShape.rectangle,
@@ -728,7 +746,134 @@ class _AppointmentsState extends State<Appointments> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  // view appointment details dialog
+  Future<Widget> _viewAppointmentDialog(context, appointment) async {
+    await Future.delayed(Duration(milliseconds: 100));
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            backgroundColor: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(16.0),
+                      ),
+                    ),
+                    height: 70,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text('Appointment Details',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            color: Colors.white),
+                        textAlign: TextAlign.center),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Container(
+                        height: 200,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Description:',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              Text(appointment['description']),
+                              SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Date: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                  Text(appointment['date'] != null
+                                      ? appointment['date']
+                                      : 'N/A')
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Time: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                  Text(appointment['time'] != null
+                                      ? appointment['time']
+                                      : 'N/A')
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Comments: ',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              Text(appointment['comments'] != null
+                                  ? appointment['comments']
+                                  : 'N/A'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 30.0,
+                      width: double.infinity,
+                      child: Text(
+                        'CLOSE',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
                   ),
                 ],
               ),
