@@ -189,250 +189,247 @@ class _AppointmentsState extends State<Appointments> {
                               scrollDirection: Axis.vertical,
                               itemCount: _appointments.length,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        20, 10, 20, 6),
-                                    margin: const EdgeInsets.fromLTRB(
-                                        20, 10, 20, 10),
-                                    width: width,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: colorWhite,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: Offset(0, 3)),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              _appointments[index]['full_name'],
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
+                                return Container(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      20, 10, 20, 6),
+                                  margin: const EdgeInsets.fromLTRB(
+                                      20, 10, 20, 10),
+                                  width: width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: colorWhite,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3)),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            _appointments[index]['full_name'],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
                                             ),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 2,
-                                                      horizontal: 5),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: _appointments[index][
-                                                              'appointment_status'] ==
-                                                          'PENDING'
-                                                      ? Colors.orange
-                                                      : _appointments[index]['appointment_status'] ==
-                                                              'ACCEPTED'
-                                                          ? Colors.green
-                                                          : _appointments[index]['appointment_status'] ==
-                                                                  'PAID'
-                                                              ? Colors.blue[700]
-                                                              : _appointments[index]['appointment_status'] ==
-                                                                      'COMPLETED'
-                                                                  ? Colors
-                                                                      .grey[600]
-                                                                  : _appointments[index]['appointment_status'] ==
-                                                                          'CANCELLED'
-                                                                      ? Colors
-                                                                          .redAccent[100]
-                                                                      : Colors.red[600]),
-                                              child: Text(
-                                                _appointments[index]
-                                                    ['appointment_status'],
-                                                style: TextStyle(
-                                                    color: colorWhite,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: width - 80,
-                                              height: 50,
-                                              child: Text(
-                                                _appointments[index]
-                                                    ['description'],
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Appointment: ',
+                                          ),
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 2,
+                                                    horizontal: 5),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: _appointments[index][
+                                                            'appointment_status'] ==
+                                                        'PENDING'
+                                                    ? Colors.orange
+                                                    : _appointments[index]['appointment_status'] ==
+                                                            'ACCEPTED'
+                                                        ? Colors.green
+                                                        : _appointments[index]['appointment_status'] ==
+                                                                'PAID'
+                                                            ? Colors.blue[700]
+                                                            : _appointments[index]['appointment_status'] ==
+                                                                    'COMPLETED'
+                                                                ? Colors
+                                                                    .grey[600]
+                                                                : _appointments[index]['appointment_status'] ==
+                                                                        'CANCELLED'
+                                                                    ? Colors
+                                                                        .redAccent[100]
+                                                                    : Colors.red[600]),
+                                            child: Text(
+                                              _appointments[index]
+                                                  ['appointment_status'],
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                                  color: colorWhite,
+                                                  fontWeight:
+                                                      FontWeight.w500),
                                             ),
-                                            (_appointments[index]['date'] ==
-                                                        null ||
-                                                    _appointments[index]
-                                                            ['time'] ==
-                                                        null)
-                                                ? Text(
-                                                    'N/A',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  )
-                                                : Text(
-                                                    '${_appointments[index]['date']}  ${_appointments[index]['time']}',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Expanded(
-                                              child: DropdownButton<String>(
-                                                isDense: true,
-                                                isExpanded: true,
-                                                // dropdownColor: fillColor,
-                                                icon: Icon(
-                                                  Icons.more_horiz,
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            width: width - 80,
+                                            height: 50,
+                                            child: Text(
+                                              _appointments[index]
+                                                  ['description'],
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Appointment: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          (_appointments[index]['date'] ==
+                                                      null ||
+                                                  _appointments[index]
+                                                          ['time'] ==
+                                                      null)
+                                              ? Text(
+                                                  'N/A',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )
+                                              : Text(
+                                                  '${_appointments[index]['date']}  ${_appointments[index]['time']}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
-                                                underline: Container(
-                                                  height: 0,
-                                                  color:
-                                                      Colors.deepPurpleAccent,
-                                                ),
-                                                onChanged: (String newValue) {
-                                                  setState(() {
-                                                    dropdownValue = newValue;
-                                                  });
-                                                },
-                                                items: <String>[
-                                                  'View',
-                                                  'Update',
-                                                  'Cancel'
-                                                ].map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                    onTap: () {
-                                                      print(value);
-                                                      print(
-                                                          _appointments[index]);
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Expanded(
+                                            child: DropdownButton<String>(
+                                              isDense: true,
+                                              isExpanded: true,
+                                              // dropdownColor: fillColor,
+                                              icon: Icon(
+                                                Icons.more_horiz,
+                                              ),
+                                              underline: Container(
+                                                height: 0,
+                                                color:
+                                                    Colors.deepPurpleAccent,
+                                              ),
+                                              onChanged: (String newValue) {
+                                                setState(() {
+                                                  dropdownValue = newValue;
+                                                });
+                                              },
+                                              items: <String>[
+                                                'View',
+                                                'Update',
+                                                'Cancel'
+                                              ].map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<
+                                                    String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                  onTap: () {
+                                                    print(value);
+                                                    print(
+                                                        _appointments[index]);
 
-                                                      if (value == 'View') {
-                                                        _viewAppointmentDialog(
-                                                            context,
-                                                            _appointments[
-                                                                index]);
-                                                      } else if (value ==
-                                                              'Cancel' ||
-                                                          value == 'Update') {
-                                                        if (_appointments[index]
-                                                                    [
-                                                                    'appointment_status'] ==
-                                                                'CANCELLED' ||
-                                                            _appointments[index]
-                                                                    [
-                                                                    'appointment_status'] ==
-                                                                'REJECTED' ||
-                                                            _appointments[index]
-                                                                    [
-                                                                    'appointment_status'] ==
-                                                                'COMPLETED') {
-                                                          Fluttertoast.showToast(
-                                                              msg:
-                                                                  'This appointment has already been ${_appointments[index]['appointment_status']}!',
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .red[600],
-                                                              textColor:
-                                                                  colorWhite,
-                                                              toastLength: Toast
-                                                                  .LENGTH_LONG);
-                                                        } else {
-                                                          if (value ==
-                                                              'Cancel') {
-                                                            _cancelAppointment(
-                                                                    _appointments[
-                                                                            index]
-                                                                        [
-                                                                        'appointment_id'])
-                                                                .then((value) {
-                                                              var res =
-                                                                  jsonDecode(
-                                                                      value
-                                                                          .body);
+                                                    if (value == 'View') {
+                                                      _viewAppointmentDialog(
+                                                          context,
+                                                          _appointments[
+                                                              index]);
+                                                    } else if (value ==
+                                                            'Cancel' ||
+                                                        value == 'Update') {
+                                                      if (_appointments[index]
+                                                                  [
+                                                                  'appointment_status'] ==
+                                                              'CANCELLED' ||
+                                                          _appointments[index]
+                                                                  [
+                                                                  'appointment_status'] ==
+                                                              'REJECTED' ||
+                                                          _appointments[index]
+                                                                  [
+                                                                  'appointment_status'] ==
+                                                              'COMPLETED') {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                'This appointment has already been ${_appointments[index]['appointment_status']}!',
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .red[600],
+                                                            textColor:
+                                                                colorWhite,
+                                                            toastLength: Toast
+                                                                .LENGTH_LONG);
+                                                      } else {
+                                                        if (value ==
+                                                            'Cancel') {
+                                                          _cancelAppointment(
+                                                                  _appointments[
+                                                                          index]
+                                                                      [
+                                                                      'appointment_id'])
+                                                              .then((value) {
+                                                            var res =
+                                                                jsonDecode(
+                                                                    value
+                                                                        .body);
 
-                                                              if (res['error'] ==
-                                                                  true) {
-                                                                Fluttertoast.showToast(
-                                                                    msg: res[
-                                                                        'message'],
-                                                                    backgroundColor:
-                                                                        Colors.red[
-                                                                            600],
-                                                                    textColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    toastLength:
-                                                                        Toast
-                                                                            .LENGTH_LONG);
-                                                              } else {
-                                                                Fluttertoast.showToast(
-                                                                        msg: res[
-                                                                            'message'],
-                                                                        backgroundColor:
-                                                                            Colors
-                                                                                .green,
-                                                                        textColor:
-                                                                            Colors
-                                                                                .white,
-                                                                        toastLength:
-                                                                            Toast
-                                                                                .LENGTH_LONG)
-                                                                    .then(
-                                                                        (value) {
-                                                                  _getAppointments();
-                                                                });
-                                                              }
-                                                            });
-                                                          } else if (value ==
-                                                              'Update') {
-                                                            _updateAppointmentDialog(
-                                                                context,
-                                                                _appointments[
-                                                                        index][
-                                                                    'appointment_id']);
-                                                          }
+                                                            if (res['error'] ==
+                                                                true) {
+                                                              Fluttertoast.showToast(
+                                                                  msg: res[
+                                                                      'message'],
+                                                                  backgroundColor:
+                                                                      Colors.red[
+                                                                          600],
+                                                                  textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  toastLength:
+                                                                      Toast
+                                                                          .LENGTH_LONG);
+                                                            } else {
+                                                              Fluttertoast.showToast(
+                                                                      msg: res[
+                                                                          'message'],
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .green,
+                                                                      textColor:
+                                                                          Colors
+                                                                              .white,
+                                                                      toastLength:
+                                                                          Toast
+                                                                              .LENGTH_LONG)
+                                                                  .then(
+                                                                      (value) {
+                                                                _getAppointments();
+                                                              });
+                                                            }
+                                                          });
+                                                        } else if (value ==
+                                                            'Update') {
+                                                          _updateAppointmentDialog(
+                                                              context,
+                                                              _appointments[
+                                                                      index][
+                                                                  'appointment_id']);
                                                         }
                                                       }
-                                                    },
-                                                  );
-                                                }).toList(),
-                                              ),
+                                                    }
+                                                  },
+                                                );
+                                              }).toList(),
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 );
                               }),
