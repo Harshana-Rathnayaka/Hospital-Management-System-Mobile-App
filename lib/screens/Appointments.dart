@@ -199,19 +199,7 @@ class _AppointmentsState extends State<Appointments> {
                                     width: width,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      gradient: LinearGradient(
-                                          colors: [
-                                            Color(0xFFDE6CF5),
-                                            Color(0xFFCC79F2),
-                                            Color(0xFFC77AF2),
-                                            Color(0xFFBF7BF2),
-                                            Color(0xFFB77CF3),
-                                            Color(0xFFAD7DF3),
-                                            Color(0xFF9F7EF4),
-                                          ],
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          tileMode: TileMode.clamp),
+                                      color: colorWhite,
                                       boxShadow: [
                                         BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
@@ -229,9 +217,9 @@ class _AppointmentsState extends State<Appointments> {
                                             Text(
                                               _appointments[index]['full_name'],
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                  color: colorWhite),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
                                             ),
                                             Container(
                                               padding:
@@ -264,7 +252,7 @@ class _AppointmentsState extends State<Appointments> {
                                                 _appointments[index]
                                                     ['appointment_status'],
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: colorWhite,
                                                     fontWeight:
                                                         FontWeight.w500),
                                               ),
@@ -282,8 +270,6 @@ class _AppointmentsState extends State<Appointments> {
                                                     ['description'],
                                                 overflow: TextOverflow.ellipsis,
                                                 maxLines: 2,
-                                                style: TextStyle(
-                                                    color: colorWhite),
                                               ),
                                             )
                                           ],
@@ -293,7 +279,6 @@ class _AppointmentsState extends State<Appointments> {
                                             Text(
                                               'Appointment: ',
                                               style: TextStyle(
-                                                  color: Colors.white70,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             (_appointments[index]['date'] ==
@@ -304,16 +289,14 @@ class _AppointmentsState extends State<Appointments> {
                                                 ? Text(
                                                     'N/A',
                                                     style: TextStyle(
-                                                        color: Colors.white70,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.w500),
                                                   )
                                                 : Text(
                                                     '${_appointments[index]['date']}  ${_appointments[index]['time']}',
                                                     style: TextStyle(
-                                                        color: Colors.white70,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.w500),
                                                   ),
                                           ],
                                         ),
@@ -325,9 +308,10 @@ class _AppointmentsState extends State<Appointments> {
                                               child: DropdownButton<String>(
                                                 isDense: true,
                                                 isExpanded: true,
-                                                dropdownColor: fillColor,
-                                                icon: Icon(Icons.more_horiz,
-                                                    color: Colors.white),
+                                                // dropdownColor: fillColor,
+                                                icon: Icon(
+                                                  Icons.more_horiz,
+                                                ),
                                                 underline: Container(
                                                   height: 0,
                                                   color:
@@ -380,7 +364,7 @@ class _AppointmentsState extends State<Appointments> {
                                                                   Colors
                                                                       .red[600],
                                                               textColor:
-                                                                  Colors.white,
+                                                                  colorWhite,
                                                               toastLength: Toast
                                                                   .LENGTH_LONG);
                                                         } else {
@@ -498,7 +482,7 @@ class _AppointmentsState extends State<Appointments> {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.white),
+                            color: colorWhite),
                         textAlign: TextAlign.center),
                   ),
                   SizedBox(
@@ -595,7 +579,7 @@ class _AppointmentsState extends State<Appointments> {
                                     Fluttertoast.showToast(
                                         msg: res['message'],
                                         backgroundColor: Colors.red[600],
-                                        textColor: Colors.white,
+                                        textColor: colorWhite,
                                         toastLength: Toast.LENGTH_LONG);
                                   } else {
                                     setState(() {
@@ -604,7 +588,7 @@ class _AppointmentsState extends State<Appointments> {
                                     Fluttertoast.showToast(
                                             msg: res['message'],
                                             backgroundColor: Colors.green,
-                                            textColor: Colors.white,
+                                            textColor: colorWhite,
                                             toastLength: Toast.LENGTH_LONG)
                                         .then((value) {
                                       Navigator.pop(context);
@@ -676,7 +660,7 @@ class _AppointmentsState extends State<Appointments> {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.white),
+                            color: colorWhite),
                         textAlign: TextAlign.center),
                   ),
                   SizedBox(
@@ -711,7 +695,7 @@ class _AppointmentsState extends State<Appointments> {
                                     Fluttertoast.showToast(
                                         msg: res['message'],
                                         backgroundColor: Colors.red[600],
-                                        textColor: Colors.white,
+                                        textColor: colorWhite,
                                         toastLength: Toast.LENGTH_LONG);
                                   } else {
                                     setState(() {
@@ -720,7 +704,7 @@ class _AppointmentsState extends State<Appointments> {
                                     Fluttertoast.showToast(
                                             msg: res['message'],
                                             backgroundColor: Colors.green,
-                                            textColor: Colors.white,
+                                            textColor: colorWhite,
                                             toastLength: Toast.LENGTH_LONG)
                                         .then((value) {
                                       Navigator.pop(context);
@@ -792,7 +776,7 @@ class _AppointmentsState extends State<Appointments> {
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.white),
+                            color: colorWhite),
                         textAlign: TextAlign.center),
                   ),
                   SizedBox(
