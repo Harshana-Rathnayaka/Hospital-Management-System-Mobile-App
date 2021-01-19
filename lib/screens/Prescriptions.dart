@@ -22,7 +22,6 @@ class _PrescriptionsState extends State<Prescriptions> {
   double height;
   String dropdownValue = 'Mark as Received';
 
-  GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   void initState() {

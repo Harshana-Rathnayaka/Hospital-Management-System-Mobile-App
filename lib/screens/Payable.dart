@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hospital_management_system/constants/colors.dart';
+import 'package:hospital_management_system/services/PaymentService.dart';
 import 'package:http/http.dart' as http;
 import 'package:hospital_management_system/services/NetworkHelper.dart';
 
@@ -28,6 +29,7 @@ class _PayableState extends State<Payable> {
   void initState() {
     _getPayableAppointments();
     super.initState();
+    StripeService.init();
   }
 
   @override
@@ -78,6 +80,45 @@ class _PayableState extends State<Payable> {
     return response;
   }
 
+  // make poyment
+  Future<StripeTransactionResponse> _makePayment() async {
+    setState(() {
+      _loading = true;
+    });
+
+    final response = await StripeService.payWithNewCard(
+        amount: '500000', currency: 'lkr', paymentFor: 'APPOINTMENT');
+
+    setState(() {
+      _loading = false;
+    });
+
+    return response;
+  }
+
+  // marking as paid
+  Future<http.Response> _markAsPaid(appointmentId, stripeCustomerId) async {
+    setState(() {
+      _loading = true;
+    });
+
+    final http.Response response = await Network().postData({
+      'patient_id': widget.userId.toString(),
+      'appointment_id': appointmentId.toString(),
+      'payment_for': 'APPOINTMENT',
+      'amount': '500000',
+      'stripe_customer_id': stripeCustomerId
+    }, '/charge.php');
+
+    print('response ---- ${jsonDecode(response.body)}');
+
+    setState(() {
+      _loading = false;
+    });
+
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -87,7 +128,7 @@ class _PayableState extends State<Payable> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Appointments'),
+        title: Text('Payable Appointments'),
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())
@@ -292,6 +333,63 @@ class _PayableState extends State<Payable> {
                                                               .then((value) {
                                                             _getPayableAppointments();
                                                           });
+                                                        }
+                                                      });
+                                                    } else if (value == 'Pay') {
+                                                      _makePayment()
+                                                          .then((value) {
+                                                        if (value.success ==
+                                                            true) {
+                                                          _markAsPaid(
+                                                                  _payableAppointments[
+                                                                          index]
+                                                                      [
+                                                                      'appointment_id'],
+                                                                  value
+                                                                      .paymentId)
+                                                              .then((val) {
+                                                            var res =
+                                                                jsonDecode(
+                                                                    val.body);
+                                                            if (res['error'] ==
+                                                                false) {
+                                                              Fluttertoast.showToast(
+                                                                      msg: res[
+                                                                          'message'],
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .green,
+                                                                      textColor:
+                                                                          colorWhite,
+                                                                      toastLength:
+                                                                          Toast
+                                                                              .LENGTH_LONG)
+                                                                  .whenComplete(
+                                                                      () {
+                                                                _getPayableAppointments();
+                                                              });
+                                                            } else {
+                                                              Fluttertoast.showToast(
+                                                                  msg: res[
+                                                                      'message'],
+                                                                  backgroundColor:
+                                                                      errorColor,
+                                                                  textColor:
+                                                                      colorWhite,
+                                                                  toastLength: Toast
+                                                                      .LENGTH_LONG);
+                                                            }
+                                                          });
+                                                        } else {
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  value.message,
+                                                              backgroundColor:
+                                                                  errorColor,
+                                                              textColor:
+                                                                  colorWhite,
+                                                              toastLength: Toast
+                                                                  .LENGTH_LONG);
                                                         }
                                                       });
                                                     }
