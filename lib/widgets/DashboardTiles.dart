@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hospital_management_system/constants/colors.dart';
-import 'package:hospital_management_system/screens/AllVehicles.dart';
 import 'package:hospital_management_system/screens/Appointments.dart';
-import 'package:hospital_management_system/screens/FuelSettings.dart';
 import 'package:hospital_management_system/screens/LabTests.dart';
 import 'package:hospital_management_system/screens/Payable.dart';
 import 'package:hospital_management_system/screens/Prescriptions.dart';
@@ -195,8 +193,7 @@ class _DashboardTilesState extends State<DashboardTiles> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => AllVehicles()));
+                    
                   },
                   child: Card(
                     margin: const EdgeInsets.all(10),

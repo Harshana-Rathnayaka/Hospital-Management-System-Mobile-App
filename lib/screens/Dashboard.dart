@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:hospital_management_system/widgets/DashboardTiles.dart';
-import 'package:hospital_management_system/widgets/ManagementOptions.dart';
 
 enum Page { dashboard, manage }
 
@@ -38,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
         return DashboardTiles(username: widget.name, userId: widget.userId);
         break;
       case Page.manage:
-        return ManagementOptions();
+        return Container();
         break;
       default:
         return Container();
