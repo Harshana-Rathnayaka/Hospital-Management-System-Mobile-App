@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:hospital_management_system/services/NetworkHelper.dart';
-import 'package:path_provider/path_provider.dart';
 
 class LabReports extends StatefulWidget {
   final String userId;

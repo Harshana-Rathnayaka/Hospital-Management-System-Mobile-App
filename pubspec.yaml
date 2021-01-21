@@ -31,7 +31,6 @@ dependencies:
   fluttertoast: ^7.1.6
   http: ^0.12.2
   intl: ^0.16.1
-  path_provider: ^1.6.27
   flutter_cached_pdfview:
   stripe_payment: null
 
