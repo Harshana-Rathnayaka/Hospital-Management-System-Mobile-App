@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:hospital_management_system/screens/Appointments.dart';
+import 'package:hospital_management_system/screens/LabReports.dart';
 import 'package:hospital_management_system/screens/LabTests.dart';
 import 'package:hospital_management_system/screens/Payable.dart';
 import 'package:hospital_management_system/screens/Prescriptions.dart';
@@ -192,9 +193,7 @@ class _DashboardTilesState extends State<DashboardTiles> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    
-                  },
+                  onTap: () {},
                   child: Card(
                     margin: const EdgeInsets.all(10),
                     color: cardColor,
@@ -217,24 +216,32 @@ class _DashboardTilesState extends State<DashboardTiles> {
                     ),
                   ),
                 ),
-                Card(
-                  margin: const EdgeInsets.all(10),
-                  color: cardColor,
-                  elevation: 5.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(FlutterIcons.file_document_mco,
-                            size: 50, color: primaryColor),
-                        Text(
-                          'Downloads',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                        )
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => LabReports(userId: widget.userId)));
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.all(10),
+                    color: cardColor,
+                    elevation: 5.0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(FlutterIcons.file_document_mco,
+                              size: 50, color: primaryColor),
+                          Text(
+                            'Downloads',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
