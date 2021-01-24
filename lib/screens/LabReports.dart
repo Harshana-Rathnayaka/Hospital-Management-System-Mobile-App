@@ -20,7 +20,12 @@ class _LabReportsState extends State<LabReports> {
   List _completedLabTests;
   double width;
   double height;
+
+  // for real device
   final String pdfBaseUrl = 'http://0.0.0.0:8001/lab-reports';
+
+  // for emulator
+  // final String pdfBaseUrl = 'http://10.0.2.2:8001/lab-reports';
 
   @override
   void initState() {
@@ -257,7 +262,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
                 pageSnap: true,
                 swipeHorizontal: true)
             .fromUrl(
-              widget.location,
+          widget.location,
           // 'https://www.researchgate.net/profile/Mustafa_Saad7/publication/321318899_Automatic_Street_Light_Control_System_Using_Microcontroller/links/5c0e6a374585157ac1b74569/Automatic-Street-Light-Control-System-Using-Microcontroller.pdf',
           placeholder: (double progress) => Center(
             child: CircularProgressIndicator(
