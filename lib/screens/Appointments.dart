@@ -190,10 +190,10 @@ class _AppointmentsState extends State<Appointments> {
                               itemCount: _appointments.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20, 10, 20, 6),
-                                  margin: const EdgeInsets.fromLTRB(
-                                      20, 10, 20, 10),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 10, 20, 6),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(20, 10, 20, 10),
                                   width: width,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -220,10 +220,8 @@ class _AppointmentsState extends State<Appointments> {
                                             ),
                                           ),
                                           Container(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 2,
-                                                    horizontal: 5),
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 2, horizontal: 5),
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
@@ -231,28 +229,17 @@ class _AppointmentsState extends State<Appointments> {
                                                             'appointment_status'] ==
                                                         'PENDING'
                                                     ? Colors.orange
-                                                    : _appointments[index]['appointment_status'] ==
+                                                    : _appointments[index][
+                                                                'appointment_status'] ==
                                                             'ACCEPTED'
                                                         ? Colors.green
-                                                        : _appointments[index]['appointment_status'] ==
-                                                                'PAID'
-                                                            ? Colors.blue[700]
-                                                            : _appointments[index]['appointment_status'] ==
-                                                                    'COMPLETED'
-                                                                ? Colors
-                                                                    .grey[600]
-                                                                : _appointments[index]['appointment_status'] ==
-                                                                        'CANCELLED'
-                                                                    ? Colors
-                                                                        .redAccent[100]
-                                                                    : Colors.red[600]),
+                                                        : Colors.blue[700]),
                                             child: Text(
                                               _appointments[index]
                                                   ['appointment_status'],
                                               style: TextStyle(
                                                   color: colorWhite,
-                                                  fontWeight:
-                                                      FontWeight.w500),
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           )
                                         ],
@@ -306,14 +293,12 @@ class _AppointmentsState extends State<Appointments> {
                                             child: DropdownButton<String>(
                                               isDense: true,
                                               isExpanded: true,
-                                              // dropdownColor: fillColor,
                                               icon: Icon(
                                                 Icons.more_horiz,
                                               ),
                                               underline: Container(
                                                 height: 0,
-                                                color:
-                                                    Colors.deepPurpleAccent,
+                                                color: Colors.deepPurpleAccent,
                                               ),
                                               onChanged: (String newValue) {
                                                 setState(() {
@@ -326,48 +311,40 @@ class _AppointmentsState extends State<Appointments> {
                                                 'Cancel'
                                               ].map<DropdownMenuItem<String>>(
                                                   (String value) {
-                                                return DropdownMenuItem<
-                                                    String>(
+                                                return DropdownMenuItem<String>(
                                                   value: value,
                                                   child: Text(value),
                                                   onTap: () {
                                                     print(value);
-                                                    print(
-                                                        _appointments[index]);
+                                                    print(_appointments[index]);
 
                                                     if (value == 'View') {
                                                       _viewAppointmentDialog(
                                                           context,
-                                                          _appointments[
-                                                              index]);
+                                                          _appointments[index]);
                                                     } else if (value ==
                                                             'Cancel' ||
                                                         value == 'Update') {
-                                                      if (_appointments[index]
-                                                                  [
+                                                      if (_appointments[index][
                                                                   'appointment_status'] ==
                                                               'CANCELLED' ||
-                                                          _appointments[index]
-                                                                  [
+                                                          _appointments[index][
                                                                   'appointment_status'] ==
                                                               'REJECTED' ||
-                                                          _appointments[index]
-                                                                  [
+                                                          _appointments[index][
                                                                   'appointment_status'] ==
                                                               'COMPLETED') {
                                                         Fluttertoast.showToast(
                                                             msg:
                                                                 'This appointment has already been ${_appointments[index]['appointment_status']}!',
                                                             backgroundColor:
-                                                                Colors
-                                                                    .red[600],
+                                                                Colors.red[600],
                                                             textColor:
                                                                 colorWhite,
                                                             toastLength: Toast
                                                                 .LENGTH_LONG);
                                                       } else {
-                                                        if (value ==
-                                                            'Cancel') {
+                                                        if (value == 'Cancel') {
                                                           _cancelAppointment(
                                                                   _appointments[
                                                                           index]
@@ -376,8 +353,7 @@ class _AppointmentsState extends State<Appointments> {
                                                               .then((value) {
                                                             var res =
                                                                 jsonDecode(
-                                                                    value
-                                                                        .body);
+                                                                    value.body);
 
                                                             if (res['error'] ==
                                                                 true) {
@@ -390,9 +366,8 @@ class _AppointmentsState extends State<Appointments> {
                                                                   textColor:
                                                                       Colors
                                                                           .white,
-                                                                  toastLength:
-                                                                      Toast
-                                                                          .LENGTH_LONG);
+                                                                  toastLength: Toast
+                                                                      .LENGTH_LONG);
                                                             } else {
                                                               Fluttertoast.showToast(
                                                                       msg: res[

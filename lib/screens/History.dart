@@ -64,7 +64,7 @@ class _HistoryState extends State<History> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Text('Appointments'),
+        title: Text('History'),
       ),
       body: _loading
           ? Center(child: CircularProgressIndicator())
