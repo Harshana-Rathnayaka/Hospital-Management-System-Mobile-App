@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:hospital_management_system/constants/colors.dart';
 import 'package:hospital_management_system/screens/Appointments.dart';
+import 'package:hospital_management_system/screens/History.dart';
 import 'package:hospital_management_system/screens/LabReports.dart';
 import 'package:hospital_management_system/screens/LabTests.dart';
 import 'package:hospital_management_system/screens/Payable.dart';
@@ -124,7 +125,7 @@ class _DashboardTilesState extends State<DashboardTiles> {
                           Icon(FlutterIcons.test_tube_mco,
                               size: 50, color: primaryColor),
                           Text(
-                            'Lab Reports',
+                            'Lab Tests',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           )
@@ -193,7 +194,12 @@ class _DashboardTilesState extends State<DashboardTiles> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => History(userId: widget.userId)));
+                  },
                   child: Card(
                     margin: const EdgeInsets.all(10),
                     color: cardColor,
