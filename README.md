@@ -35,7 +35,7 @@
 - A little knowledge of Dart and Flutter
 - The Hospital Management System web application [Click here](https://github.com/Harshana-Rathnayaka/Hospital-Management-System)
 
-## 🔨 Installation
+## 🔨 Installation (Windows Only)
 
 - Follow the below steps to get up and running
 - Run the following `commands` inside Visual Studio Code or any other IDE which has a terminal or you can just use `cmd`
