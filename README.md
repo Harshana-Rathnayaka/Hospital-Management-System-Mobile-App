@@ -123,7 +123,7 @@ php -S 0.0.0.0:8001
 - Again the URL for emulators will be commented out by default. Uncomment it to access the `PDF` files from the emulator.
 - Sometimes the emulator might not be able to access the PDF files.
 - Disable the `proxy` from the emulator if that happens and apply `No Proxy` setting.
-- Then the application will work without any error but sometimes it might display a `connection closed` error randomly.
+- Then the application will work without any errors but sometimes it might display a `connection closed` error randomly.
 
 
 
