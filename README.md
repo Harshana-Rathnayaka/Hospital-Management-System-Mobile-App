@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Flutter Vehicle Management System 👋</h1>
+<h1 align="center">Welcome to Flutter Hospital Management System 👋</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0.-blue.svg?cacheSeconds=2592000" />
@@ -16,24 +16,27 @@
   </a>
 </p>
 
-***Star ⭐ the repo if you like what you see. 😎***
+**_Star ⭐ the repo if you like what you see. 😎_**
 
 <img alt="Poster" src="assets/screenshots/poster.jpg" />
 
-> ***A Hospital Management System made with Flutter to help you make doctor's appointments and lab appointments during this Covid-19 Era.***
+> **_A Hospital Management System made with Flutter to help you make doctor's appointments and lab appointments during this Covid-19 Era._**
 
 ## 👷‍♂️ Built With
 
-* [Flutter](https://flutter.dev)
-* [PHP](https://www.php.net/)
-* [Stripe API](https://stripe.com/en-gb-us)
+- [Flutter](https://flutter.dev)
+- [PHP](https://www.php.net/)
+- [Stripe API](https://stripe.com/en-gb-us)
 
 ## ✨ Requirements
-* Any Operating System (ie. MacOS X, Linux, Windows)
-* Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc.)
-* A little knowledge of Dart and Flutter
+
+- Any Operating System (ie. MacOS X, Linux, Windows)
+- Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc.)
+- A little knowledge of Dart and Flutter
+- The Hospital Management System web application [Click here](https://github.com/Harshana-Rathnayaka/Hospital-Management-System)
 
 ## 🔨 Installation
+
 - Follow the below steps to get up and running
 - Run the following `commands` inside Visual Studio Code or any other IDE which has a terminal or you can just use `cmd`
 
@@ -48,6 +51,7 @@ $ git clone https://github.com/Harshana-Rathnayaka/Covid19-Tracker
 ```
 
 > 🏃‍♂️ Run and test the application
+
 - Run the following commands to run and test the application in an emulator or a real device
 
 ```dart
@@ -65,10 +69,11 @@ $ flutter run
 adb reverse tcp:8000 tcp:8000
 adb reverse tcp:8001 tcp:8001
 ```
-> *Port 8000 is used to access the general backend. Port 8001 is used to access the PDF files which are stored in the PC. These are uploaded from the web application.*
+
+> _Port 8000 is used to access the general backend. Port 8001 is used to access the PDF files which are stored in the PC. These are uploaded from the web application._
 
 - Two seperate server instances will have to be running in order to access the general backend as well as the PDF files.
-- Therefore, you need to navigate to the folder where you have stored the backend script. 
+- Therefore, you need to navigate to the folder where you have stored the backend script.
 
 ```bash
 cd path/folder-name
@@ -81,15 +86,16 @@ cd path/folder-name
 php -S 0.0.0.0:8000
 ```
 
-- Now go to the folder where you have stored the web application files. 
+- Now go to the folder where you have stored the web application files.
 - Note that there is a folder called `lab-reports`. This is where all the lab reports are stored in.
-- Open up `cmd` or `PowerShell` and run the below command to serve the `API` for 
+- Open up `cmd` or `PowerShell` and run the below command to serve the `API` for
 
 ```php
 php -S 0.0.0.0:8001
 ```
 
 > ℹ Additional information
+
 - The above steps will work fine if you are using a real device. However, if you want to use an emulator, follow these additional steps to setup the environment properly.
 - Open up the cloned repository in your desired IDE and locate the `NetworkHelper.dart` file.
 - Find the following lines,
@@ -102,9 +108,9 @@ php -S 0.0.0.0:8001
   final String url = "http://10.0.2.2:8000/api";
 ```
 
-> *Real devices reffer to the `localhost` as `0.0.0.0`. Emulators reffer to the `localhost` as `10.0.2.2`.*
+> _Real devices reffer to the `localhost` as `0.0.0.0`. Emulators reffer to the `localhost` as `10.0.2.2`._
 
-- By default, the application is set to be run on a real device. Therefore, the URL for the emulator localhost has been commented out. 
+- By default, the application is set to be run on a real device. Therefore, the URL for the emulator localhost has been commented out.
 - Uncomment it and comment the URL for the local device and run the application on an emulator.
 - Also, remember to run the previously mentioned `ADB` commands before running the application on an emulator.
 - Change this URL setting whenever you want to run on a real device or an emulator.
@@ -125,14 +131,14 @@ php -S 0.0.0.0:8001
 - Disable the `proxy` from the emulator if that happens and apply `No Proxy` setting.
 - Then the application will work without any errors but sometimes it might display a `connection closed` error randomly.
 
-
 ## 📸 Screenshots
 
 <img src="assets/screenshots/1.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/2.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/3.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/4.png" width="220"> </br> </br> </br>
-<img src="assets/screenshots/5.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/6.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/7.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/8.png" width="220"> 
+<img src="assets/screenshots/5.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/6.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/7.png" width="220">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="assets/screenshots/8.png" width="220">
 
 ## 🤓 Author
-**Harshana Rathnayaka** 
+
+**Harshana Rathnayaka**
 <br>
 <img href="https://facebook.com/DiloHashRoX" src="https://img.shields.io/badge/facebook-%231877F2.svg?&style=for-the-badge&logo=facebook&logoColor=white">
 <img href="https://instagram.com/hash_dreeko" src="https://img.shields.io/badge/instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white">
@@ -151,4 +157,6 @@ php -S 0.0.0.0:8001
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - Copyright 2020 © <a href="http://fb.com/DreekoCorporations" target="_blank">Dreeko Corporations</a>
 
+## 🌍 Hospital Management System Web Application
 
+`https://github.com/Harshana-Rathnayaka/Hospital-Management-System`
