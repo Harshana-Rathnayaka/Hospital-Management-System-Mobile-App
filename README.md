@@ -18,51 +18,110 @@
 
 ***Star ⭐ the repo if you like what you see. 😎***
 
-- first run the below commands to redirect the phone's desired port to the PC's desired port
-== you need to install ADB tools from android studio for this to work
+> ***A Hospital Management System made with Flutter to help you make doctor's appointments and lab appointments during this Covid-19 Era.***
+
+## 👷‍♂️ Built With
+
+* [Flutter](https://flutter.dev)
+* [PHP](https://www.php.net/)
+* [Stripe API](https://stripe.com/en-gb-us)
+
+## ✨ Requirements
+* Any Operating System (ie. MacOS X, Linux, Windows)
+* Any IDE with Flutter SDK installed (ie. IntelliJ, Android Studio, VSCode etc.)
+* A little knowledge of Dart and Flutter
+
+## 🔨 Installation
+- Follow the below steps to get up and running
+- Run the following `commands` inside Visual Studio Code or any other IDE which has a terminal or you can just use `cmd`
+
+> 👯 Clone the repository
+
+- Clone this repo to your local machine using `https://github.com/Harshana-Rathnayaka/Hospital-Management-System-Mobile-App`
+
+```shell
+
+$ git clone https://github.com/Harshana-Rathnayaka/Covid19-Tracker
+
+```
+
+> 🏃‍♂️ Run and test the application
+- Run the following commands to run and test the application in an emulator or a real device
+
+```dart
+
+$ flutter pub get
+$ flutter run
+
+```
+
+- This application's backend is written in pure `PHP` and it does not include a `REST Api`. Therefore, the application should be able to access the PC's localhost.
+- Connect your device to the PC and run the below commands to redirect the device's desired port to the PC's desired port. This will grant the device access to the PC's localhost. This works on both real devices as well as emulators.
+- `ADB` tools must be installed in your PC for this to work.
 
 ```bash
 adb reverse tcp:8000 tcp:8000
 adb reverse tcp:8001 tcp:8001
 ```
+> *Port 8000 is used to access the general backend. Port 8001 is used to access the PDF files which are stored in the PC. These are uploaded from the web application.*
 
-### 8000 to access the API. 8001 to access the PDF files stored in the web application folder
-- then navigate to your api folder location
+- Two seperate server instances will have to be running in order to access the general backend as well as the PDF files.
+- Therefore, you need to navigate to the folder where you have stored the backend script. 
 
 ```bash
 cd path/folder-name
 ```
 
-- now run the below command to serve the api
+- Open up `cmd` or `PowerShell` and run the below command to server the `API`.
+- This will serve the `PHP API` on port 8000 of your PC.
 
 ```php
 php -S 0.0.0.0:8000
 ```
 
-- in the app go to *NetwrokHelper.dart* and check if the below line exists. if not add it
-
-```dart
-final String url = "http://0.0.0.0:8000/api";
-```
-
-- now run the below command to access the pdf reports. this should be run inside the hms folder (web app)
+- Now go to the folder where you have stored the web application files. 
+- Note that there is a folder called `lab-reports`. This is where all the lab reports are stored in.
+- Open up `cmd` or `PowerShell` and run the below command to serve the `API` for 
 
 ```php
 php -S 0.0.0.0:8001
 ```
 
-## the above url is for real devices only.
-### use the following if you want to test on emulators
+> ℹ Additional information
+- The above steps will work fine if you are using a real device. However, if you want to use an emulator, follow these additional steps to setup the environment properly.
+- Open up the cloned repository in your desired IDE and locate the `NetworkHelper.dart` file.
+- Find the following lines,
 
 ```dart
-final String url = "http://10.0.2.2:8000/api";
+  // for real device
+  final String url = "http://0.0.0.0:8000/api";
+
+  // for emulator
+  final String url = "http://10.0.2.2:8000/api";
 ```
 
-### this url should also be changed in the LabReports.dart page
+> *Real devices reffer to the `localhost` as `0.0.0.0`. Emulators reffer to the `localhost` as `10.0.2.2`.*
 
-## if you are running this on emlators, disable the proxy from emulator settings and apply No Proxy setting. 
-## the app will work but it will display 'connection closed' error randomly. 
+- By default, the application is set to be run on a real device. Therefore, the URL for the emulator localhost has been commented out. 
+- Uncomment it and comment the URL for the local device and run the application on an emulator.
+- Also, remember to run the previously mentioned `ADB` commands before running the application on an emulator.
+- Change this URL setting whenever you want to run on a real device or an emulator.
 
-# Now run the application. It should work 
+- The above URL change should be done in the `LabReports.dart` file as well.
+- Locate the following code within the file.
+
+```dart
+  // for real device
+  final String pdfBaseUrl = 'http://0.0.0.0:8001/lab-reports';
+
+  // for emulator
+  final String pdfBaseUrl = 'http://10.0.2.2:8001/lab-reports';
+```
+
+- Again the URL for emulators will be commented out by default. Uncomment it to access the `PDF` files from the emulator.
+- Sometimes the emulator might not be able to access the PDF files.
+- Disable the `proxy` from the emulator if that happens and apply `No Proxy` setting.
+- Then the application will work without any error but sometimes it might display a `connection closed` error randomly.
+
 
 
