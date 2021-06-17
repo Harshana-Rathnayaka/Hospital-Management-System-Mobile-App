@@ -17,6 +17,7 @@
 </p>
 
 ***Star ⭐ the repo if you like what you see. 😎***
+
 <img alt="Poster" src="assets/screenshots/poster.jpg" />
 
 > ***A Hospital Management System made with Flutter to help you make doctor's appointments and lab appointments during this Covid-19 Era.***
