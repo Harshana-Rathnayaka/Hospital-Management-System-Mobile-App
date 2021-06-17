@@ -1,4 +1,22 @@
-# vehicle_management_system
+<h1 align="center">Welcome to Flutter Vehicle Management System 👋</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0.-blue.svg?cacheSeconds=2592000" />
+  <a>
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a>
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  </a>
+  <a href="http://makeapullrequest.com">
+    <img alt="PRs welcome: alianilkocak" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://linkedin.com/in/harshana-rathnayaka">
+  <img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-black.svg?&logo=linkedin&colorB=555" />
+  </a>
+</p>
+
+***Star ⭐ the repo if you like what you see. 😎***
 
 - first run the below commands to redirect the phone's desired port to the PC's desired port
 == you need to install ADB tools from android studio for this to work
